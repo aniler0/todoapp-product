@@ -1,16 +1,21 @@
 import { Text } from "components";
-import { Checked } from "icons";
+import { Checked, Unchecked } from "icons";
+import { Task } from "store/taskSlice";
 import * as S from "./styles";
 
-const Task = () => {
+type TaskComponentType = {
+  task: Task;
+};
+
+const TaskCard: React.FC<TaskComponentType> = ({ task }) => {
   return (
     <S.TaskWrapper>
       <S.TaskContainer>
-        <Checked />
-        <Text type="medium">1</Text>
+        {task.completed ? <Checked /> : <Unchecked />}
+        <Text type="medium">{task.task}</Text>
       </S.TaskContainer>
     </S.TaskWrapper>
   );
 };
 
-export default Task;
+export default TaskCard;
