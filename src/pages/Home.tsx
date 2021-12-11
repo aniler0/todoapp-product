@@ -1,18 +1,18 @@
 import { TaskCard, Text } from "components";
 import { Button } from "components/Button/styles";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "store";
-import { addTask } from "store/taskSlice";
+import { addTask, deleteTasks } from "store/taskSlice";
 import * as S from "styles/Pages/home";
 
 const Home = () => {
   const [task, setTask] = useState("");
-  const tasks = useAppSelector((state) => state.tasks);
+  const todos = useAppSelector((state) => state.tasks);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(addTask(tasks.tasks, task));
+    dispatch(addTask(todos.tasks, task));
     setTask("");
   };
 
@@ -22,7 +22,7 @@ const Home = () => {
         <Text type="large">To Do List</Text>
       </S.HomeTitle>
       <S.TasksWrapper>
-        {tasks.tasks.map((task, key) => (
+        {todos.tasks.map((task, key) => (
           <TaskCard key={key} task={task} />
         ))}
       </S.TasksWrapper>
@@ -36,7 +36,9 @@ const Home = () => {
           />
           <Button>Submit</Button>
         </S.SubmitForm>
-        <Button secondary>Clear Completed</Button>
+        <Button secondary onClick={() => dispatch(deleteTasks(todos.tasks))}>
+          Clear Completed
+        </Button>
       </S.AddingTaskWrapper>
     </S.HomeContainer>
   );

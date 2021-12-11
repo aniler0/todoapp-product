@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 
 interface Type {
   type: "small" | "medium" | "large";
+  toggle?: boolean;
 }
 
 export const TextContainer = styled.div`
@@ -14,14 +15,17 @@ export const Text = styled.h1<Type>`
       font-size: 10px;
       font-weight: 300;
     `}
-  ${({ type }) =>
+  ${({ type, toggle }) =>
     type === "medium" &&
     css`
       font-size: 30px;
       font-weight: 400;
       margin-left: 10px;
       color: #33322e;
+      text-decoration: ${toggle && "line-through"};
     `}
+
+    
     ${({ type }) =>
     type === "large" &&
     css`
